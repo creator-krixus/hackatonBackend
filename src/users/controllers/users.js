@@ -11,17 +11,19 @@ const controller = {};
 
 controller.createUser = async(req, res) => {
     try {
-        const {email, password, confirmPassword} = req.body;
+        const {nombre, email, password, confirmPassword} = req.body;
         
         if (password == confirmPassword){
              //encriptar la clave
              const hashed = await bcrypt.hash(password, roundSalt);
              const user = userSchema({
+                  nombre: nombre,
                   email: email,
                   password: hashed
              });
              //Generamos el token
              const token = await jwt.sign({
+                  nombre,
                   email,
                   password : password
              }, "kjaskjkfjkfhdshfurh65423", {
