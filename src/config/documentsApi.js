@@ -77,7 +77,7 @@ module.exports = documents;
 //Endpoint para registrar y crear nuevos usuarios
 /**
  * @swagger
- * /api/v1/users/register:
+ * /api/v1/users:
  *  post:
  *      summary: Create new user
  *      tags: [users]
