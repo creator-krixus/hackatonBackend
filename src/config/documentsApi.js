@@ -9,7 +9,7 @@ const swaggerSpec = {
         },
         servers: [
             {
-                url:"http://localhost:6500"
+                url:"https://backend-hackaton2021.herokuapp.com/"
             }
         ]
     },
@@ -77,7 +77,7 @@ module.exports = documents;
 //Endpoint para registrar y crear nuevos usuarios
 /**
  * @swagger
- * /api/v1/users:
+ * /api/v1/users/register:
  *  post:
  *      summary: Create new user
  *      tags: [users]
