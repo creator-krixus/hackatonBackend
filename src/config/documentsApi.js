@@ -30,6 +30,9 @@ module.exports = documents;
  *      User:
  *        type: object
  *        properties:
+ *          nombre:
+ *              type: string
+ *              description: Nombre de usuario nuevo
  *          email:
  *              type: string
  *              description: Email valido
@@ -44,6 +47,7 @@ module.exports = documents;
  *            -password
  *            -confirmPassword     
  *        example:
+ *           nombre: wilson   
  *           email: email@gmail.com
  *           password: Halo1
  *           confirmPassword: Halo1
