@@ -9,7 +9,7 @@ const roundSalt = 10;
 
 const controller = {};
 
-controller.createUser = (req, res) => {
+controller.createUser = async(req, res) => {
     try {
         const {email, password, confirmPassword} = req.body;
         
