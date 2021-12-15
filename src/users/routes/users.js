@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router()
 const controller = require('../controllers/users')
 
-router.post('/', controller.createUser);
+router.post('/register', controller.createUser);
 router.post('/login', controller.loginUser);
 router.get('/', controller.getAllUsers);
 router.get('/:id', controller.getOneUser);
