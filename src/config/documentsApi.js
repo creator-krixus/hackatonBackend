@@ -177,7 +177,7 @@ module.exports = documents;
  * @swagger
  * /api/v1/users/{id}:
  *  get:
- *      summary: Return a propertie
+ *      summary: Return a user
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -203,7 +203,7 @@ module.exports = documents;
  * @swagger
  * /api/v1/users/{id}:
  *  put:
- *      summary: Update a propertie
+ *      summary: Update a user
  *      tags: [users]
  *      parameters:
  *        - in: path
@@ -238,7 +238,7 @@ module.exports = documents;
  * @swagger
  * /api/v1/users/{id}:
  *  delete:
- *      summary: Delete a propertie
+ *      summary: Delete a user
  *      tags: [users]
  *      parameters:
  *        - in: path
