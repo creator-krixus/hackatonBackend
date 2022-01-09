@@ -264,16 +264,16 @@ module.exports = documents;
  *        properties:
  *          imagen:
  *              type: string
- *              description: Nombre del producto
+ *              description: Imagen del producto
  *          nombre:
  *              type: string
- *              description: Clasificacion del producto
+ *              description: Nombre del producto
  *          valor:
  *              type: number
  *              description: Costo del producto
  *          calificacion: 
  *              type: string
- *              description: Disponibilidad del producto
+ *              description: Calificacion del producto
  *        required:
  *            -imagen
  *            -nombre
