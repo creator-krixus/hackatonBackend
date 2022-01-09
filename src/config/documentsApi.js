@@ -4,7 +4,7 @@ const swaggerSpec = {
     definition: {
         openapi: "3.0.3",
         info: {
-            title: "Documentation API Hackaton upb 2021",
+            title: "Documentation",
             version: "1.0.0"
         },
         servers: [
