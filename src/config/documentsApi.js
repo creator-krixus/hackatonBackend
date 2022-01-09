@@ -253,3 +253,156 @@ module.exports = documents;
  *          404:
  *              description: User not found
  */
+
+//Creacion del esquema de la documentacion
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      products:
+ *        type: object
+ *        properties:
+ *          imagen:
+ *              type: string
+ *              description: Nombre del producto
+ *          nombre:
+ *              type: string
+ *              description: Clasificacion del producto
+ *          valor:
+ *              type: number
+ *              description: Costo del producto
+ *          calificacion: 
+ *              type: string
+ *              description: Disponibilidad del producto
+ *        required:
+ *            -imagen
+ *            -nombre
+ *            -valor
+ *            -calificacion   
+ *        example:
+ *              imagen: http:imagen.png
+ *              nombre: pera
+ *              valor: 1400
+ *              calificacion: cinco estrellas
+ */
+
+
+
+
+//Endpoint para crear nuevos productos
+/**
+ * @swagger
+ * /api/v1/products:
+ *  post:
+ *      summary: Create new product
+ *      tags: [products]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/products'
+ *      responses:
+ *          200:
+ *              description: New product create!
+ */
+
+//Endpoint para obtener todos los productos
+/**
+ * @swagger
+ * /api/v1/products:
+ *  get:
+ *      summary: Return all products
+ *      tags: [products]                
+ *      responses:
+ *          200:
+ *              description: All products
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/products'
+ */
+
+
+//Obtener una producto mediante el id
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *  get:
+ *      summary: Return a product for identifier unique
+ *      tags: [products]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: A product
+ *      responses:
+ *          200:
+ *              description: A product
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref: '#/components/schemas/products'
+ *          404:
+ *              description: Product not found
+ */
+
+//Editar la informacion de un producto
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *  put:
+ *      summary: Update a product
+ *      tags: [products]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: Update a product
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/products'
+ *      responses:
+ *          200:
+ *              description: update product
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: objet
+ *                          $ref: '#/components/schemas/products'
+ *          404:
+ *              description: Product not found
+ */
+
+//Borra una producto
+/**
+ * @swagger
+ * /api/v1/products/{id}:
+ *  delete:
+ *      summary: Delete a product
+ *      tags: [products]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: Delete a product
+ *      responses:
+ *          200:
+ *              description: Delete product
+ *          404:
+ *              description: Product not found
+ */
