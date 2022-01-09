@@ -36,7 +36,7 @@ controller.updateProductById = (req, res) => {
 
 controller.deleteProduct = (req, res) => {
     const { id } = req.params; 
-    userSchema
+    SchemaProducts
         .remove({_id:id})
         .then((data) =>  res.json(data))
         .catch((error) =>  res.json({message: error}))
