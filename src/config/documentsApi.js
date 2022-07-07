@@ -10,6 +10,7 @@ const swaggerSpec = {
         servers: [
             {
                 url:"https://hack-app-a.herokuapp.com/"
+                // url:"https://localhost:6500"
             }
         ]
     },
@@ -405,4 +406,152 @@ module.exports = documents;
  *              description: Delete product
  *          404:
  *              description: Product not found
+ */
+
+//Creacion del esquema de la documentacion tasks
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      tasks:
+ *        type: object
+ *        properties:
+ *          title:
+ *              type: string
+ *              description: Titulo de la tarea
+ *          description:
+ *              type: string
+ *              description: Nombre del product
+ *          tags:
+ *              type: array
+ *              description: Tags identificadores
+ *        required:
+ *            -title
+ *            -description
+ *            -tags
+ *        example:
+ *              title: Hacer un backend
+ *              description: Crear un todo
+ *              tags: [todo, back, lista]
+ */
+
+
+
+
+//Endpoint para crear nuevas tasks
+/**
+ * @swagger
+ * /api/v1/tasks:
+ *  post:
+ *      summary: Create new task
+ *      tags: [tasks]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/tasks'
+ *      responses:
+ *          200:
+ *              description: New task create!
+ */
+
+//Endpoint para obtener todas las tasks
+/**
+ * @swagger
+ * /api/v1/tasks:
+ *  get:
+ *      summary: Return all tasks
+ *      tags: [tasks]                
+ *      responses:
+ *          200:
+ *              description: All tasks
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/tasks'
+ */
+
+
+//Obtener una task mediante el id
+/**
+ * @swagger
+ * /api/v1/tasks/{id}:
+ *  get:
+ *      summary: Return a task for identifier unique
+ *      tags: [tasks]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: A task
+ *      responses:
+ *          200:
+ *              description: A task
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          $ref: '#/components/schemas/tasks'
+ *          404:
+ *              description: Task not found
+ */
+
+//Editar la informacion de un producto
+/**
+ * @swagger
+ * /api/v1/tasks/{id}:
+ *  put:
+ *      summary: Update a task
+ *      tags: [tasks]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: Update a task
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/tasks'
+ *      responses:
+ *          200:
+ *              description: update task
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: objet
+ *                          $ref: '#/components/schemas/tasks'
+ *          404:
+ *              description: Task not found
+ */
+
+//Borra una tarea
+/**
+ * @swagger
+ * /api/v1/tasks/{id}:
+ *  delete:
+ *      summary: Delete a task
+ *      tags: [tasks]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          schema:
+ *              type: string
+ *          required: true
+ *          description: Delete a task
+ *      responses:
+ *          200:
+ *              description: Delete task
+ *          404:
+ *              description: Task not found
  */
