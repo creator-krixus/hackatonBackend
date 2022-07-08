@@ -12,7 +12,7 @@ router.get('/', controller.getAllTasks)
 router.get('/:id', controller.getById)
 
 //Actualizar tarea
-router.put('/:id', controller.createNewTask)
+router.put('/:id', controller.updateTaskById)
 
 //Borrado de una tarea
 router.delete('/:id', controller.deleteTask)
