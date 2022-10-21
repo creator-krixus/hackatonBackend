@@ -10,7 +10,7 @@ const swaggerSpec = {
         servers: [
             {
                 url:"https://hack-app-a.herokuapp.com/"
-                // url:"https://localhost:6500"
+                // url:"http://localhost:6500"
             }
         ]
     },
@@ -255,7 +255,7 @@ module.exports = documents;
  *              description: User not found
  */
 
-//Creacion del esquema de la documentacion
+//Creacion del esquema de la documentacion productos
 /**
  * @swagger
  * components:
@@ -554,4 +554,76 @@ module.exports = documents;
  *              description: Delete task
  *          404:
  *              description: Task not found
+ */
+
+//Creacion del esquema de la documentacion tasks
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *      lottery:
+ *        type: object
+ *        properties:
+ *          numero:
+ *              type: number
+ *              description: Numero con el que juegan
+ *          vendedor:
+ *              type: string
+ *              description: Nombre del que vende el numero
+ *          apuesta:
+ *              type: number
+ *              description: Valor de la apuesta
+ *          numeroGanador:
+ *              type: number
+ *              description: Numero que gana en el sorteo
+ *        required:
+ *            -numero
+ *            -vendedor
+ *            -apuesta
+ *            -numeroGanador  
+ *        example:
+ *              numero: 321
+ *              vendedor: wilson
+ *              apuesta: 2000
+ *              numeroGanador: 654    
+ */
+
+
+
+
+//Endpoint para crear nuevas tasks
+/**
+ * @swagger
+ * /api/v1/lottery:
+ *  post:
+ *      summary: Create new winner
+ *      tags: [lottery]
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      type: object
+ *                      $ref: '#/components/schemas/lottery'
+ *      responses:
+ *          200:
+ *              description: New win create!
+ */
+
+//Endpoint para obtener todas las tasks
+/**
+ * @swagger
+ * /api/v1/lottery:
+ *  get:
+ *      summary: Return all winners
+ *      tags: [lottery]                
+ *      responses:
+ *          200:
+ *              description: All winners
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: array
+ *                          items:
+ *                              $ref: '#/components/schemas/lottery'
  */

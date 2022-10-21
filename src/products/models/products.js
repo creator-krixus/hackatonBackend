@@ -3,20 +3,20 @@ const mongoose = require('mongoose');
 const SchemaProducts = mongoose.Schema({
     imagen: {
         type: String,
-        required: true
+        // required: true
     },
     nombre: {
         type: String,
-        unique: true,
-        required: true
+        // unique: true,
+        // required: true
     },
     valor: {
         type: Number,
-        required: true
+        // required: true
     },
     calificacion: {
         type: String,
-        default: true
+        // default: true
     }
 },
 {

@@ -3,11 +3,11 @@ const schemaProducts = require('../models/products');
 const controller = {}
 
 controller.createNewProduct = (req, res) => {
-    product = schemaProducts(req.body);
-    product
-        .save()
-        .then(data =>  res.json(data))
-        .catch(err => res.json({message:err}))
+        product = schemaProducts(req.body);
+        product
+            .save()
+            .then(data =>  res.json(data))
+            .catch(err => res.json({message:err}))
 }
 
 controller.getAllProducts = (req, res) => {
