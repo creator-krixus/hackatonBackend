@@ -1,17 +1,17 @@
-const schemaProducts = require('../models/products');
+const schemaTasks = require('../models/tasks');
 
 const controller = {}
 
-controller.createNewProduct = (req, res) => {
-        product = schemaProducts(req.body);
-        product
-            .save()
-            .then(data =>  res.json(data))
-            .catch(err => res.json({message:err}))
+controller.createNewTask = (req, res) => {
+    task = schemaTasks(req.body);
+    task
+        .save()
+        .then(data =>  res.json(data))
+        .catch(err => res.json({message:err}))
 }
 
-controller.getAllProducts = (req, res) => {
-    schemaProducts
+controller.getAllTasks = (req, res) => {
+    schemaTasks
             .find()
             .then(data => res.json(data))
             .catch(error => res.json({message: error}))
@@ -19,24 +19,24 @@ controller.getAllProducts = (req, res) => {
 
 controller.getById = (req, res) => {
     const { id } = req.params;
-    schemaProducts
+    schemaTasks
             .findById(id)
             .then((data) => res.json(data))
             .catch(error => res.json({message: error}))
 }
 
-controller.updateProductById = (req, res) => {
+controller.updateTaskById = (req, res) => {
     const { id } = req.params;
-    const { imagen, nombre, valor, calificacion } = req.body;
-    schemaProducts
-            .updateOne({_id: id}, {$set:{ imagen, nombre, valor, calificacion }})
+    const { title, description, tags } = req.body;
+    schemaTasks
+            .updateOne({_id: id}, {$set:{ title, description, tags }})
             .then((data) =>  res.json(data))
             .catch((error) =>  res.json({message: error}))
 }
 
-controller.deleteProduct = (req, res) => {
+controller.deleteTask = (req, res) => {
     const { id } = req.params; 
-    schemaProducts
+    schemaTasks
         .remove({_id:id})
         .then((data) =>  res.json(data))
         .catch((error) =>  res.json({message: error}))

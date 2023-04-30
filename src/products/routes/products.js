@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const upload = require('../../middlewares/storage')
 const controller = require('../controllers/products')
 
 //Crear un nuevo producto
-router.post('/', controller.createNewProduct)
+router.post('/', upload.single('imagen'), controller.createNewProduct)
 
 //Obtener todos los productos
 router.get('/', controller.getAllProducts)
