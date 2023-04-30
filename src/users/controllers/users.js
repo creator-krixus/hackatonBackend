@@ -9,48 +9,54 @@ const roundSalt = 10;
 
 const controller = {};
 
-controller.createUser = async(req, res) => {
-    try {
-        const {nombre, email, password, confirmPassword} = req.body;
-        
-        if (password == confirmPassword){
-             //encriptar la clave
-             const hashed = await bcrypt.hash(password, roundSalt);
-             const user = userSchema({
-                  nombre: nombre,
-                  email: email,
-                  password: hashed
-             });
-             //Generamos el token
-             const token = await jwt.sign({
-                  nombre,
-                  email,
-                  password : password
-             }, "kjaskjkfjkfhdshfurh65423", {
-                  expiresIn:3600000
-             })
-             //Añadimos el token al objeto usuario
-             user.token = token;
-             //Ingresamos el usuario a la db con el token
-             user
-                  .save()
-                  .then(data => {
-                       res.json(data)
-                       res.json({isOk: true, msj:'Usuario creado'});
-                  } )
-                  .catch(error =>  {
-                       res.json(error)
-                       res.json('Usuario no se puede crear');
-                  })
-             
-        }else{
-             //Enviar mensaje de error
-             res.json({isOk: false, msj: 'Passwords not equals'});
-        }
-   } catch (error) {
-        console.log(error)
-   }
-}
+controller.createUser = async (req, res) => {
+     try {
+       const { nombre, email, password, confirmPassword } = req.body;
+   
+       if (password !== confirmPassword) {
+         return res.status(400).json({ isOk: false, msj: 'Passwords do not match' });
+       }
+   
+       // Validar email con expresiones regulares
+       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+       if (!emailRegex.test(email)) {
+         return res.status(400).json({ isOk: false, msj: 'Invalid email' });
+       }
+       // Verificar si el correo electrónico ya está en uso
+       const existingUser = await userSchema.findOne({ email });
+       if (existingUser) {
+         return res.status(400).json({ isOk: false, msj: 'Email is already in use' });
+       }
+   
+       const hashedPassword = await bcrypt.hash(password, roundSalt);
+   
+       const user = userSchema({
+         nombre,
+         email,
+         password: hashedPassword,
+       });
+   
+       const token = await jwt.sign(
+         {
+           id: user._id,
+           email: user.email,
+         },
+         'kjaskjkfjkfhdshfurh65423',
+         {
+           expiresIn: 3600000,
+         }
+       );
+   
+       user.token = token;
+   
+       await user.save();
+   
+       return res.json({ isOk: true, msj: 'User created', data: user });
+     } catch (error) {
+       console.log(error);
+       return res.status(500).json({ isOk: false, msj: 'Could not create user' });
+     }
+   };
 
 //Logeamos un usuario
 controller.loginUser = async (req, res) => {
@@ -85,20 +91,37 @@ controller.loginUser = async (req, res) => {
      // Our register logic ends here
   }
 
+// controller.getAllUsers = (req, res) => {
+//     userSchema
+//         .find()
+//         .then(data =>  res.json(data))
+//         .catch(error =>  res.json({msj: error}))
+// }
 controller.getAllUsers = (req, res) => {
-    userSchema
-        .find()
-        .then(data =>  res.json(data))
-        .catch(error =>  res.json({msj: error}))
-}
+     userSchema
+     .find()
+     .then((data) => {
+     if (!data || data.length === 0) { // Si no hay datos encontrados, devuelve un error 404
+     return res.status(404).json({msj: 'No users found' });
+     }
+     return res.status(200).json(data); // Devuelve una respuesta exitosa 200 con los datos
+     })
+     .catch((error) => res.status(500).json({msj: error.message })); // Si hay algún error, devuelve un error 500
+     }
 
 controller.getOneUser = (req, res) => {
-     const { id } = req.params; 
+     const { id } = req.params;
+     
      userSchema
-         .findById(id)
-         .then((data) =>  res.json({ data: data }))
-         .catch((error) =>  res.json({message: error}))
-}
+     .findById(id)
+     .then((data) => {
+     if (!data) { // Si el usuario no existe, devuelve un error 404
+     return res.status(404).json({ isOk: false, msj: 'User not found' });
+     }
+     return res.json({ isOk: true, data: data });
+     })
+     .catch((error) => res.status(500).json({ isOk: false, msj:'user not found', error: error }));
+}     
 
 controller.updateUser = (req, res) => {
      const { id } = req.params;

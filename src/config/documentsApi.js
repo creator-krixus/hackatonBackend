@@ -9,8 +9,8 @@ const swaggerSpec = {
         },
         servers: [
             {
-                url:"https://hack-app-a.herokuapp.com/"
-                // url:"http://localhost:6500"
+                // url:"https://hack-app-a.herokuapp.com/"
+                url:"http://localhost:6500"
             }
         ]
     },

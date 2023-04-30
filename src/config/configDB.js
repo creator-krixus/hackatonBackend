@@ -8,7 +8,9 @@ const connection = (app) => {
             useUnifiedtopology: true
         })
         .then(() => console.log('db conected'))
-        .catch(error => console.error(error))
+        .catch(error => {
+            console.log(error)
+        })
     } catch (error) {
         console.error(error)
     }
@@ -16,3 +18,4 @@ const connection = (app) => {
 }
 
 module.exports = connection;
+
