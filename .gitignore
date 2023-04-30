@@ -1,0 +1,32 @@
+# Coverage directory used by tolls like istanbul
+coverge
+coverage_e2e
+*.lcov
+
+# Dependencias instaladas con NPM
+/node_modules
+
+# Dependencias instaladas con Yarn
+/yarn.lock
+
+# Archivos generados por IDEs
+.vscode/
+.idea/
+
+# Archivos de registro
+*.log
+logs/
+npm-debug.log*
+
+# Archivos de compilación
+/dist
+/out
+
+# Credenciales y archivos secretos
+.env
+.env.*
+*.pem
+
+# Otros archivos temporales
+.DS_Store
+Thumbs.db

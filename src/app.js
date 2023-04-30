@@ -8,17 +8,18 @@ const conection = require('./config/configDB')
 const cors = require('cors');
 const helmet = require('helmet')
 
-app.set('port', process.env.PORT || 6500);
-app.use(express.json());
-app.use(morgan('dev'))
-app.use(cors());
-app.use(helmet());
-documents(app)
+const createApp = () => {
+    app.set('port', process.env.PORT || 6500);
+    app.use(express.json());
+    app.use(morgan('dev'))
+    app.use(cors());
+    app.use(helmet());
+    documents(app)
+    
+    conection(app);
+    apiRoutes(app);
 
-conection(app);
-apiRoutes(app);
+    return app
+}
 
-
-app.listen(app.get('port'), () => {
-    console.log(`Server running on port ${app.get('port')}`)
-})
+module.exports = createApp;
