@@ -1,4 +1,4 @@
-const createApp = require('./app')
+const createApp = require('./src/app')
 const app = createApp()
 
 app.listen(app.get('port'), () => {

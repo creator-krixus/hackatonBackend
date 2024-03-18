@@ -123,21 +123,59 @@ controller.getOneUser = (req, res) => {
      .catch((error) => res.status(500).json({ isOk: false, msj:'user not found', error: error }));
 }     
 
-controller.updateUser = (req, res) => {
-     const { id } = req.params;
-     const { nombre, email, password } = req.body;
-     userSchema
-         .updateOne({_id: id}, {$set:{ nombre, email, password }})
-         .then((data) =>  res.json(data))
-         .catch((error) =>  res.json({message: error}))
-}
+// controller.updateUser = (req, res) => {
+//      const { id } = req.params;
+//      const { nombre, email, password } = req.body;
+//      userSchema
+//          .updateOne({_id: id}, {$set:{ nombre, email, password }})
+//          .then((data) =>  res.json(data))
+//          .catch((error) =>  res.json({message: error}))
+// }
+controller.updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { nombre, email, password } = req.body;
 
-controller.deleteUser = (req, res) => {
-     const { id } = req.params; 
-     userSchema
-         .remove({_id:id})
-         .then((data) =>  res.json(data))
-         .catch((error) =>  res.json({message: error}))
-}
+    // Validar que los parámetros no sean undefined o null
+    if (!id || !nombre || !email || !password) {
+      return res.status(400).json({ message: 'Faltan parámetros en la solicitud.' });
+    }
 
+    // Actualizar el usuario en la base de datos
+    const updatedUser = await userSchema.updateOne({ _id: id }, { nombre, email, password });
+
+    // Devolver el usuario actualizado
+    res.json(updatedUser);
+  } catch (error) {
+    // Devolver un código de error adecuado y un mensaje descriptivo
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// controller.deleteUser = (req, res) => {
+//      const { id } = req.params; 
+//      userSchema
+//          .remove({_id:id})
+//          .then((data) =>  res.json(data))
+//          .catch((error) =>  res.json({message: error}))
+// }
+controller.deleteUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Validar que el parámetro no sea undefined o null
+    if (!id) {
+      return res.status(400).json({ message: 'Falta el parámetro de ID en la solicitud.' });
+    }
+
+    // Eliminar el usuario de la base de datos
+    const deletedUser = await userSchema.remove({ _id: id });
+
+    // Devolver el usuario eliminado
+    res.json(deletedUser);
+  } catch (error) {
+    // Devolver un código de error adecuado y un mensaje descriptivo
+    res.status(500).json({ message: error.message });
+  }
+};
 module.exports = controller;
