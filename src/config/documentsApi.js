@@ -9,7 +9,7 @@ const swaggerSpec = {
         },
         servers: [
             {
-                // url:"https://hack-app-a.herokuapp.com/"
+                // url:"https://hackaton-backend-2jebcwgs6-wilsonrueda2-gmailcom.vercel.app/"
                 url:"http://localhost:6500"
             }
         ]
